@@ -1,4 +1,3 @@
-
 package com.unpri.charactermanager.view;
 
 import java.awt.BorderLayout;
@@ -15,7 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 
-import com.unpri.charactermanager.CharacterManager;
+
 import com.unpri.charactermanager.model.Character;
 import com.unpri.charactermanager.model.CharacterType;
 

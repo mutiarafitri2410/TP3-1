@@ -1,4 +1,3 @@
-
 package com.unpri.charactermanager;
 
 import javax.swing.SwingUtilities;
@@ -6,6 +5,7 @@ import javax.swing.SwingUtilities;
 import com.unpri.charactermanager.model.Character;
 import com.unpri.charactermanager.model.CharacterType;
 import com.unpri.charactermanager.view.MainWindow;
+import com.unpri.charactermanager.view.CharacterManager;
 
 public class Main {
 
