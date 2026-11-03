@@ -1,4 +1,4 @@
-package com.unpri.charactermanager;
+package com.unpri.charactermanager.view;
 
 import java.util.ArrayList;
 
