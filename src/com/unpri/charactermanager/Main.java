@@ -1,5 +1,6 @@
-
 package com.unpri.charactermanager;
+
+import java.util.ArrayList;
 
 import com.unpri.charactermanager.model.Character;
 import com.unpri.charactermanager.model.CharacterType;
@@ -8,66 +9,140 @@ public class Main {
 
     public static void main(String[] args) {
 
+        CharacterManager manager = new CharacterManager();
+
         System.out.println("==================================");
-        System.out.println("       CHARACTER MANAGER");
+        System.out.println("     CHARACTER MANAGER - AP6");
         System.out.println("==================================");
 
-        // Membuat tiga karakter
-        Character character1 = new Character(
-            "Aragorn", CharacterType.WARRIOR,
-            5, 150, 40, 30
-        );
+        // Membuat karakter
+        Character aragorn = new Character(
+                "Aragorn", CharacterType.WARRIOR, 6, 160, 45, 30);
 
-        Character character2 = new Character(
-            "Gandalf", CharacterType.MAGE,
-            7, 110, 55, 15
-        );
+        Character gandalf = new Character(
+                "Gandalf", CharacterType.MAGE, 7, 110, 55, 15);
 
-        Character character3 = new Character(
-            "Legolas", CharacterType.ARCHER,
-            4, 120, 35, 20
-        );
+        Character legolas = new Character(
+                "Legolas", CharacterType.ARCHER, 4, 120, 35, 20);
 
-        // Menampilkan tiga karakter
-        System.out.println("\n=== DAFTAR KARAKTER ===");
-        System.out.println(character1);
-        System.out.println(character2);
-        System.out.println(character3);
+        Character merlin = new Character(
+                "Merlin", CharacterType.MAGE, 5, 100, 60, 10);
 
-        // Demo level up
-        System.out.println("\n=== DEMO LEVEL UP ===");
+        Character dara = new Character(
+                "Dara", CharacterType.HEALER, 3, 130, 20, 25);
 
-        System.out.println("Sebelum level up:");
-        System.out.println(character1);
+        // Menguji addCharacter()
+        System.out.println("\n--- MENAMBAHKAN KARAKTER ---");
 
-        character1.levelUp();
+        manager.addCharacter(aragorn);
+        manager.addCharacter(gandalf);
+        manager.addCharacter(legolas);
+        manager.addCharacter(merlin);
+        manager.addCharacter(dara);
 
-        System.out.println("\nSetelah level up:");
-        System.out.println(character1);
+        // Menguji penolakan nama duplikat
+        Character aragornDuplikat = new Character(
+                "Aragorn", CharacterType.MAGE, 2, 100, 20, 10);
 
-        // Mini-Challenge: karakter tambahan
-        System.out.println("\n=== MINI CHALLENGE ===");
+        boolean duplicateResult = manager.addCharacter(aragornDuplikat);
 
-        Character character4 = new Character(
-            "Merlin", CharacterType.MAGE
-        );
+        System.out.println("Karakter duplikat berhasil ditambahkan: "
+                + duplicateResult);
 
-        character4.setMana(150);
+        // Menampilkan semua karakter
+        System.out.println("\n--- DAFTAR KARAKTER ---");
 
-        System.out.println(character4);
-        System.out.println(
-            "Apakah Merlin masih hidup? " + character4.isAlive()
-        );
-
-        // Menguji validasi mana
-        System.out.println("\n=== TEST VALIDASI MANA ===");
-
-        try {
-            character4.setMana(-10);
-        } catch (IllegalArgumentException e) {
-            System.out.println("Validasi berhasil: " + e.getMessage());
+        for (Character character : manager.getAllCharacters()) {
+            System.out.println(character);
         }
 
-        System.out.println("\nProgram selesai.");
+        // Menguji findByName()
+        System.out.println("\n--- PENCARIAN KARAKTER ---");
+
+        Character found = manager.findByName("Gandalf");
+
+        if (found != null) {
+            System.out.println("Karakter ditemukan: " + found);
+        } else {
+            System.out.println("Karakter tidak ditemukan.");
+        }
+
+        // Menguji getTotalCharacters()
+        System.out.println("\nTotal karakter: "
+                + manager.getTotalCharacters());
+
+        // Menguji getAverageLevel()
+        System.out.println("\n--- ANALISIS KARAKTER ---");
+
+        System.out.printf("Rata-rata level: %.2f%n",
+                manager.getAverageLevel());
+
+        // Menguji findByType()
+        System.out.println("\nKarakter dengan tipe MAGE:");
+
+        ArrayList<Character> mages =
+                manager.findByType(CharacterType.MAGE);
+
+        for (Character mage : mages) {
+            System.out.println(mage.getName());
+        }
+
+        // Menguji metode analisis tambahan
+        Character strongest = manager.findStrongest();
+
+        if (strongest != null) {
+            System.out.println("\nKarakter dengan attack tertinggi: "
+                    + strongest.getName()
+                    + " (Attack: " + strongest.getAttack() + ")");
+        }
+
+        // Menguji equals()
+        System.out.println("\n--- PENGUJIAN EQUALS ---");
+
+        Character characterA = new Character(
+                "Aragorn", CharacterType.WARRIOR);
+
+        Character characterB = new Character(
+                "Aragorn", CharacterType.MAGE);
+
+        System.out.println("characterA == characterB: "
+                + (characterA == characterB));
+
+        System.out.println("characterA.equals(characterB): "
+                + characterA.equals(characterB));
+
+        // Menguji defensive copy
+        System.out.println("\n--- PENGUJIAN DEFENSIVE COPY ---");
+
+        ArrayList<Character> copiedList = manager.getAllCharacters();
+
+        System.out.println("Jumlah data sebelum list salinan diubah: "
+                + manager.getTotalCharacters());
+
+        copiedList.clear();
+
+        System.out.println("Jumlah data setelah list salinan dihapus: "
+                + manager.getTotalCharacters());
+
+        // Menguji removeCharacter()
+        System.out.println("\n--- MENGHAPUS KARAKTER ---");
+
+        boolean removed = manager.removeCharacter("Dara");
+
+        System.out.println("Dara berhasil dihapus: " + removed);
+
+        System.out.println("Total karakter sekarang: "
+                + manager.getTotalCharacters());
+
+        // Menampilkan daftar akhir
+        System.out.println("\n--- DAFTAR AKHIR ---");
+
+        for (Character character : manager.getAllCharacters()) {
+            System.out.println(character);
+        }
+
+        System.out.println("\n==================================");
+        System.out.println("       PROGRAM SELESAI");
+        System.out.println("==================================");
     }
 }
